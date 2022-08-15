@@ -34,6 +34,7 @@ def main(config):
                         expanded = True,
                         main_align = "space_around",
                         children = [
+                        # render.Box(width = 1, height = 1),
                            render.Image(src=Tautulli_Icon),
                         ],
                     ),
@@ -42,15 +43,18 @@ def main(config):
                         expanded = True,
                         main_align = "center",
                         children = [
-                           render.Text("Users: %s" % users,   color = "",)
+                            render.Text("Users: "),
+                            render.Box(width = 1, height = 1),
+                            render.Text("%s" % users, font = "", color = "#e5a00d"),
                         ],
                     ),
                        render.Row(
                         expanded = True,
                         main_align = "center",
                         children = [
-                            render.Box(width = 2, height = 1),
-                            render.Text("Mbps: %s" % bandwidth,   color = "#e5a00d",)
+                            render.Text("Mbps: "),
+                            render.Box(width = 1, height = 1),
+                            render.Text("%s" % bandwidth, font = "", color = "#e5a00d"),
                         ],
                     ),
                   
