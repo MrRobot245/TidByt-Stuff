@@ -57,8 +57,8 @@ def main(config):
                             expanded = True,
                             main_align = "center",
                             children = [
-                                render.Text("Mbps: "),
-                                render.Box(width = 1, height = 1),
+                                render.Text("UL: "),
+                                render.Box(width = 2, height = 1),
                                 render.Text("%s" % bandwidth, font = "", color = "#e5a00d"),
                             ],
                         ),
