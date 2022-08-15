@@ -18,51 +18,112 @@ def main(config):
     bandwidth = math.round((bandwidth/1024)*100)/100
     # print(bandwidth)
     users=rep.json()["response"]['data']['stream_count']
-
-
-
-    return render.Root(
-        delay = 500,
-        child = render.Box(
-            padding = 1,
-            child = render.Column(
-                expanded = True,
-                main_align = "space_around",
-                cross_align = "center",
-                children = [
-                      render.Row(
-                        expanded = True,
-                        main_align = "space_around",
-                        children = [
-                        # render.Box(width = 1, height = 1),
-                           render.Image(src=Tautulli_Icon),
-                        ],
-                    ),
+    dp1=rep.json()["response"]['data']['stream_count_direct_play']
+    dp2=rep.json()["response"]['data']['stream_count_direct_stream']
+    dp=int(dp1+dp2)
+    tc=int(rep.json()["response"]['data']['stream_count_transcode'])
+    
+    
+    
+    if config.bool("streamstats")==False:
+        return render.Root(
+            delay = 500,
+            child = render.Box(
+                padding = 1,
+                child = render.Column(
+                    expanded = True,
+                    main_align = "space_around",
+                    cross_align = "center",
+                    children = [
+                        render.Row(
+                            expanded = True,
+                            main_align = "space_around",
+                            children = [
+                            # render.Box(width = 1, height = 1),
+                            render.Image(src=Tautulli_Icon),
+                            ],
+                        ),
+                        
+                        render.Row(
+                            expanded = True,
+                            main_align = "center",
+                            children = [
+                                render.Text("Users: "),
+                                render.Box(width = 1, height = 1),
+                                render.Text("%s" % users, font = "", color = "#e5a00d"),
+                            ],
+                        ),
+                        render.Row(
+                            expanded = True,
+                            main_align = "center",
+                            children = [
+                                render.Text("Mbps: "),
+                                render.Box(width = 1, height = 1),
+                                render.Text("%s" % bandwidth, font = "", color = "#e5a00d"),
+                            ],
+                        ),
                     
-                    render.Row(
-                        expanded = True,
-                        main_align = "center",
-                        children = [
-                            render.Text("Users: "),
-                            render.Box(width = 1, height = 1),
-                            render.Text("%s" % users, font = "", color = "#e5a00d"),
-                        ],
-                    ),
-                       render.Row(
-                        expanded = True,
-                        main_align = "center",
-                        children = [
-                            render.Text("Mbps: "),
-                            render.Box(width = 1, height = 1),
-                            render.Text("%s" % bandwidth, font = "", color = "#e5a00d"),
-                        ],
-                    ),
-                  
-                 
-                ],
+                    
+                    ],
+                ),
             ),
-        ),
-    )
+        )
+
+    else:
+        return render.Root(
+            delay = 500,
+            child = render.Box(
+                padding = 1,
+                child = render.Column(
+                    expanded = True,
+                    main_align = "space_around",
+                    cross_align = "center",
+                    children = [
+                        render.Row(
+                            expanded = True,
+                            main_align = "space_around",
+                            cross_align = "center",
+                            children = [
+                            render.Image(src=Tautulli_Icon),
+                                render.Text("Streams:"),
+                                render.Box(width = 1, height = 1),
+                                render.Text("%s" % users, font = "", color = "#e5a00d"),
+                            ],
+                        ),
+                        render.Row(
+                            expanded = True,
+                            main_align = "center",
+                            cross_align = "center",
+                            children = [
+                            
+                            
+                                render.Text("Upload: "),
+                                render.Box(width = 1, height = 1),
+                                render.Text("%s" % bandwidth, font = "", color = "#e5a00d"),
+                            ],
+                        ),
+                        render.Row(
+                            expanded = True,
+                            main_align = "center",
+                            cross_align = "center",
+                            children = [
+                                render.Text("DP:"),
+                                render.Box(width = 1, height = 1),
+                                render.Text("%s" % dp, font = "", color = "#e5a00d"),
+                                render.Box(width = 15, height = 1),
+                                render.Text("TC:"),
+                                render.Box(width = 1, height = 1),
+                                render.Text("%s" % tc, font = "", color = "#e5a00d"),
+                            ],
+                        ),
+                        
+                    
+                    
+                    
+                    ],
+                ),
+            ),
+        )
 
 def get_schema():
     return schema.Schema(
@@ -72,13 +133,20 @@ def get_schema():
                 id = "api",
                 name = "API Key",
                 desc = "API Key for Tautulli",
-                icon = "user",
+                icon = "arrowUpFromBracket",
             ),
             schema.Text(
                 id = "url",
                 name = "Tautulli URL",
                 desc = "URL for Tautulli",
-                icon = "compress",
+                icon = "brain",
+            ),
+            schema.Toggle(
+                id = "streamstats",
+                name = "Play stats",
+                desc = "Display Direct Play+Transcode Status",
+                icon = "codeFork",
+                default = False,
             ),
         ],
     )
