@@ -323,7 +323,7 @@ def get_frame(state, fr, config,animprogress):
             expanded = True,
             main_align = "center",
             children = [
-                render.Text("Range: ",color=lightness("#fff", animprogress / 100)),
+                render.Text("Range: "),
                 render.Box(width = 1, height = 1),
                 render.Text("%s" % state["rangemi"], font = "", color = lightness("#e5a00d", animprogress / 100)),
             ],
