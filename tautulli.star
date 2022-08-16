@@ -1,3 +1,10 @@
+"""
+Applet: Tautulli
+Summary: Shows stream count, and bandwidth
+Description: Shows your current sessions stream count, broken up into transcodes/direct steams as an option. Also shows total upload bandwidth in Mbps
+Author: mrrobot245
+"""
+
 load("render.star", "render")
 load("http.star", "http")
 load("encoding/base64.star", "base64")
