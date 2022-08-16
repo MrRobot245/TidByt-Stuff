@@ -172,7 +172,7 @@ def main(config):
         child = render.Box(
             child = render.Animation(
                 children = [
-                    get_frame(state, fr, config)
+                    get_frame(state, fr, config, capanim((fr) * 3))
                     for fr in range(300)
                 ],
             ),
@@ -213,17 +213,19 @@ def render_progress_bar(state, label, percent, col1, col2, col3, animprogress):
     label1color = lightness("#fff", animprogress / 100)
 
     label2align = "start"
-    label2color = col3
+    # label2color = col3
+    label2color = lightness(col3, animprogress / 100)
+    label3color = lightness("#fff", animprogress / 100)
 
     labelcomponent = None
-    widthmax = FRAME_WIDTH-6
+    widthmax = FRAME_WIDTH-1
     labelcomponent = render.Stack(
         children = [
-            # render.Text(
-            #     content = label,
-            #     color = label1color,
-            #     font = "tom-thumb",
-            # ),
+            render.Text(
+                content = label,
+                color = label1color,
+                font = "tom-thumb",
+            ),
             render.Box(width = 2, height = 6),
         ],
     )
@@ -244,10 +246,14 @@ def render_progress_bar(state, label, percent, col1, col2, col3, animprogress):
         )
 
     label2component = None
-    label2component = render.Text(
-        content = "{}%".format(int(percent * animprogress / 100)),
-        color = label2color,
-        font = "tom-thumb",
+    label2component = render.Stack(
+         children = [
+            render.Text(
+            content = "{}%".format(int(percent * animprogress / 100)),
+            color = label2color,
+            font = "tom-thumb",
+            ),
+         ],
     )
 
     return render.Row(
@@ -263,7 +269,7 @@ def render_progress_bar(state, label, percent, col1, col2, col3, animprogress):
                         cross_align = "center",
                         expanded = True,
                         children = [
-                            render.Box(width = widthmax+6, height = 7, color = col1),
+                            render.Box(width = widthmax, height = 7, color = col1),
                         ],
                     ),
                     progressfill,
@@ -295,7 +301,7 @@ def render_progress_bar(state, label, percent, col1, col2, col3, animprogress):
 def capanim(input):
     return max(0, min(100, input))
 
-def get_frame(state, fr, config):
+def get_frame(state, fr, config,animprogress):
     children = []
 
     delay = 0
@@ -305,22 +311,21 @@ def get_frame(state, fr, config):
             expanded = True,
             main_align = "space_around",
             children = [
-            render.Text("%s" % state["name"], font = "", color = ""),
-            
+            render.Text("%s" % state["name"], font = ""),
             ],
         ),
     )
     children.append(
-        render_progress_bar(state, "", int(state["batterylevel"]), lightness(color, 0.06), lightness(color, 0.18), color, capanim((fr - delay) * 4)),
+        render_progress_bar(state, "", int(state["batterylevel"]), lightness(color, 0.06), lightness(color, 0.18), color, capanim((fr - delay) * 3)),
     )
     children.append(
         render.Row(
             expanded = True,
             main_align = "center",
             children = [
-                render.Text("Range: "),
+                render.Text("Range: ",color=lightness("#fff", animprogress / 100)),
                 render.Box(width = 1, height = 1),
-                render.Text("%s" % state["rangemi"], font = "", color = "#e5a00d"),
+                render.Text("%s" % state["rangemi"], font = "", color = lightness("#e5a00d", animprogress / 100)),
             ],
         ),
     )
