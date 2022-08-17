@@ -111,8 +111,6 @@ def main(config):
             child = render.WrappedText("Please enter the URL and API info!")
             )
     else:  
-
-
         taut_cache = cache.get("tautulli")
         if taut_cache != None:
             print("Hit! Displaying cached data.")
@@ -145,7 +143,7 @@ def main(config):
         child = render.Box(
             child = render.Animation(
                 children = [
-                    get_frame(state, fr, config, capanim((fr) * 3))
+                    get_frame(state, fr, config, capanim((fr) * 4))
                     for fr in range(300)
                 ],
             ),
@@ -165,7 +163,7 @@ def get_frame(state, fr, config,animprogress):
     children = []
     delay = 0
 
-    if config.bool("streamstats")==False:
+    if config.bool("streamstats")==False or config.bool("streamstats")==None:
         children.append(
             render.Row(
                 expanded = True,
@@ -260,7 +258,7 @@ def get_schema():
                 name = "Play stats",
                 desc = "Display Direct Play+Transcode Status",
                 icon = "codeFork",
-                default = False,
+                default = True,
             ),
         ],
     )
