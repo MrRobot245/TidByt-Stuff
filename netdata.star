@@ -120,12 +120,6 @@ def main(config):
         netout=int(((rep["system.net"]["dimensions"]["OutOctets"]["value"])*-1)/1000)
         uptime=int(rep["system.uptime"]["dimensions"]["uptime"]["value"])
        
-        maxdown=int(config.str("downspeed"))
-        maxup=int(config.str("upspeed"))
-        # days=(uptime/86400)
-        # hours=(days/3600)
-        # minutes=(hours/60)
-
         days = uptime // (24 * 3600)
         uptime = uptime % (24 * 3600)
         hours = int(uptime/3600)
