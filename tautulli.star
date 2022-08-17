@@ -139,7 +139,7 @@ def main(config):
     }
 
     return render.Root(
-        delay = 32,  # 30 fps
+        # delay = 32,  # 30 fps
         child = render.Box(
             child = render.Animation(
                 children = [
