@@ -133,12 +133,6 @@ def main(config):
         minutes = uptime // 60
         uptime %= 60
 
-        # print(maxdown)
-        # print(maxup)
-
-        # netin=int(netin/maxdown*100)
-        # netout=int(netout/maxup*100)
-
         # print(cpu)
         # print(ramusage)
         # print(netin)
@@ -147,34 +141,6 @@ def main(config):
         # print(days)
         # print(hours)
         # print(minutes)
-
-      
-        # name=rep['display_name']
-        # rangemi=rep['est_battery_range']
-        # # print(rep)
-        # if(config.bool("mi2km")==True):
-        #     rangemi=math.round((float(rangemi)*1.60934)*100)/100
-        # # battlevel=rep['battery_level']
-        # chargelimit=rep['charge_limit_soc']
-        # batterylevel=rep['usable_battery_level']
-        # chargingstate=rep['charging_state']
-
-        # chargeColor=""
-        # barcolor="#0f0"
-        # if chargingstate!="Disconnected":
-        #     image=BOLT_ANIMATED
-        #     chargeColor="#00FF00"
-        #     endcolor="#00ff00"
-          
-        # else:
-        #     image=BOLT_GREY
-        #     endcolor="#808080"
-        # if int(batterylevel)<=10:
-        #     chargeColor="#FF0000"
-        #     barcolor="#FF0000"
-        # if int(batterylevel)<=20 and int(batterylevel) >10:
-        #     chargeColor="#FFFF00"
-        #     barcolor="#FFFF00"
 
 
     state = {
@@ -185,9 +151,6 @@ def main(config):
         "days":days,
         "hours":hours,
         "minutes":minutes,
-        # "name":name,
-        # "rangemi":rangemi,
-        # "image":image,
     }
 
     return render.Root(
@@ -371,17 +334,5 @@ def get_schema():
                 desc = "URL for Netdata",
                 icon = "arrowUpFromBracket",
             ),
-        #     schema.Text(
-        #     id = "downspeed",
-        #     name = "Download Speed(Mbps)",
-        #     desc = "Max Download Speed for Graph",
-        #     icon = "arrowUpFromBracket",
-        # ),
-        #     schema.Text(
-        #     id = "upspeed",
-        #     name = "Upload Speed(Mbps)",
-        #     desc = "Max Upload Speed for Graph",
-        #     icon = "arrowUpFromBracket",
-        # ),
         ],
     )
